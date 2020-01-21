@@ -10,6 +10,8 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
+        
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <style>
             html, body {
                 background-color: #fff;
@@ -65,20 +67,6 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
             <div class="content">
                 <div class="title m-b-md">
                     Invento
@@ -86,11 +74,19 @@
                 <p>
                     Inventory Management Applicatioin
                 </p>
+                @if (Route::has('login'))
+                    <div class="links">
+                        @auth
+                            <a href="{{ url('/home') }}">Home</a>
+                        @else
+                            <a href="{{ route('login') }}"><button type="button" class="btn btn-primary">Login</button></a>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://github.com/okellogabrielinnocent">GitHub</a>
-                </div>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}"><button type="button" class="btn btn-primary">Register</button></a>
+                            @endif
+                        @endauth
+                    </div>
+                @endif
             </div>
         </div>
     </body>
