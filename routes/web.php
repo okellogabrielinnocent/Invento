@@ -15,9 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// ItemController.php
-Route::resource('items', 'ItemController');
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resources([
+    'items'=> 'ItemController',
+    'roles'=> 'RolesController',
+    'sales'=> 'SalesController',
+    'services'=>'ServicesController'
+]);
