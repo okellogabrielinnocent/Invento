@@ -1,13 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="modal-body">
             <div class="card">
                 <div class="card-header">Items</div>
-
+                
+                <div class="col-lg-10 margin-tb">
+                    <div class="pull-left">
+                        <a class="btn btn-primary"href="{{ route('items.create') }}">Create Item</a>
+                    </div>
+                </div>
                 <div class="card-body">
+
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -27,6 +34,8 @@
                                         <th>brand</th>
                                         <th>Created On</th>
                                         <th>Action</th>
+                                        <th></th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -44,8 +53,16 @@
                                             <td>
                                                 <button class="btn btn-primary"  $status title="View Item" onclick="location.href='/items/{{$item->id}}'">view
                                                 </button>
-                                                <button class="btn btn-danger" $status  title="Delete Item " onclick="location.href='/items/{{$item->id.' ,\''.$item->name.'\''}}'">Delete
+                                                <button class="btn btn-success" $status  title="Edit Item " onclick="location.href='/items/{{$item->id}}/edit'">Edit
                                                 </button>
+
+                                                <td>                
+                                                <form action="{{ route('items.destroy', $item->id)}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger" type="submit">Delete</button>
+                                                </form>
+                                                </td>
                                             </td>
                                         </tr>
 
@@ -56,7 +73,6 @@
                     
                 </div>
             </div>
-        <!-- </div> -->
     </div>
 </div>
 @endsection
