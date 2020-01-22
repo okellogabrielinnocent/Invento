@@ -27,6 +27,7 @@ class ItemController extends Controller
     public function create()
     {
         //code size	name cost saleable quantity	minimum_quantity brand
+        return view('items.create');
     }
 
     /**
@@ -37,7 +38,21 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'code' => 'required',
+            'cost' => 'required',
+            'saleable' => 'required',
+            'size' => 'required',
+            'quantity' => 'required',
+            'minimum_quantity' => 'required',
+            'brand' => 'required'
+            
+            
+        ]);
+        $item = Item::create($validatedData);
+   
+        return redirect('/items')->with('success', 'Item is successfully saved');
     }
 
     /**
@@ -62,7 +77,9 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Item::findOrFail($id);
+
+        return view('items.edit', ['item'=>$item]);
     }
 
     /**
@@ -74,7 +91,21 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'code' => 'required',
+            'cost' => 'required',
+            'saleable' => 'required',
+            'size' => 'required',
+            'quantity' => 'required',
+            'minimum_quantity' => 'required',
+            'brand' => 'required'
+            
+            
+        ]);
+        Item::whereId($id)->update($validatedData);
+
+        return redirect('/items')->with('success', 'Item is successfully updated');
     }
 
     /**
@@ -85,6 +116,9 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Item::findOrFail($id);
+        $item->delete();
+
+        return redirect('/items')->with('success', 'Item is successfully deleted');
     }
 }
