@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Item;
 use Illuminate\Http\Request;
 
-class ItemController extends Controller
+class SalesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +13,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //Retrieve all items
-        $items =Item::all();
-        return view('items.index', ['items'=>$items]);
+        //
     }
 
     /**
@@ -26,7 +23,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //code size	name cost saleable quantity	minimum_quantity brand
+        //
     }
 
     /**
@@ -46,12 +43,9 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show($id)
     {
-        // retrieve one item by id
-        // $item=Item::where('id', $item->id)->first();
-        $item=Item::find($item->id);
-        return view('items.show', ['items'=>$item]);
+        //
     }
 
     /**
