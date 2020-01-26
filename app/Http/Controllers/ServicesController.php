@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Service;
+use App\Item;
+use App\Sales;
 use Illuminate\Http\Request;
 
 class ServicesController extends Controller
@@ -13,7 +16,8 @@ class ServicesController extends Controller
      */
     public function index()
     {
-        //
+        $services   = Service::all();
+        return view('services.index', ['services' => $services]);
     }
 
     /**
@@ -35,7 +39,15 @@ class ServicesController extends Controller
     public function store(Request $request)
     {
         //
+        $service = new Service();
+        $service->name = $request->input('sname');
+        $service->labour_cost = $request->input('labour_cost');
+        $service->price = $request->input('price');
+        $service->save(); //persist the data
+        return redirect()->route('services.index')->with('success', 'Service Created Successfully');
     }
+
+
 
     /**
      * Display the specified resource.
@@ -45,7 +57,8 @@ class ServicesController extends Controller
      */
     public function show($id)
     {
-        //
+        $service    = Service::find($id->id);
+        return view('services.show', ['services' => $service]);
     }
 
     /**
@@ -56,7 +69,9 @@ class ServicesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $service    = Service::findOrFail($id);
+
+        return view('services.edit', ['service' => $service]);
     }
 
     /**
@@ -79,6 +94,15 @@ class ServicesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $service    = Service::findOrFail($id);
+        $service->delete();
+
+        return redirect('/serices')->with('service', 'Service is successfully deleted');
+    }
+
+    public function serch_item($name)
+    {
+        $item = Item::Where('name', 'like', '%' . $name . '%')->first();
+        return $item->name;
     }
 }

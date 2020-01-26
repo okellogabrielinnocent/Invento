@@ -3,10 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Item;
 
 class Service extends Model
 {
-    protected $fillable=[
+    protected $fillable = [
         'name',
         'price'
     ];
